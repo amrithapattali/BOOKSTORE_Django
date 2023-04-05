@@ -1,0 +1,94 @@
+
+{% block title %} sign in {% endblock title %}
+{% block content %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <script src="https://kit.fontawesome.com/c08a1bc374.js" crossorigin="anonymous"></script>
+  <title>Sign-In</title>
+  <style>
+/* Apply some basic styling to the page */
+body {
+  font-family: Arial, sans-serif;
+    background-image :url("https://scholarlykitchen.sspnet.org/wp-content/uploads/2018/07/iStock-506432952.jpg");
+}
+}
+
+/* Style the header */
+.header-bar {
+  background-color: #00458a;
+  color: #fff;
+  padding: 10px;
+  text-align: center;
+}
+
+/* Style the form */
+.card-body {
+  background-color: #fff;
+  border-radius: 5px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+  margin: 50px auto;
+  max-width: 400px;
+  padding: 20px;
+  opacity:.6;
+}
+
+/* Style the form input fields */
+input[type="text"],
+input[type="password"] {
+  border: 2px solid #ccc;
+  border-radius: 5px;
+  display: block;
+  margin-bottom: 20px;
+  padding: 10px;
+  width: 100%;
+}
+
+/* Style the form submit button */
+.button {
+  background-color: #333;
+  border: none;
+  border-radius: 5px;
+  color: #fff;
+  cursor: pointer;
+  display: inline-block;
+  font-size: 16px;
+  padding: 10px 20px;
+}
+
+/* Style the link to register a new account */
+.card-body a {
+  color: #333;
+  text-decoration: none;
+}
+
+.card-body a:hover {
+  text-decoration: underline;
+}
+
+.header-bar {
+   color:#b20b00;
+  text-align: center;
+  }
+
+  </style>
+</head>
+<body>
+  <div class="header-bar">
+  <h1>LOGIN HERE!</h1>
+  </div>
+
+  <div class="card-body">
+  <form method="POST">
+    {% csrf_token %}
+    {{form.as_p}}
+    <input class="button" type="submit" value="Login">
+  </form>
+  <p>Don't have an account? <a href="{% url 'signup' %}">Register Now!</a></p>
+  </div>
+</body>
+{% endblock content %}
+</html>

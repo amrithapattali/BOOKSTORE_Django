@@ -1,0 +1,111 @@
+{% extends 'base.html' %}
+{% block content %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        body {
+            background: #f2f2f2;
+            height: 100%;
+            margin: 0;
+        }
+        .container-fluid {
+            min-height: 100%;
+            position: relative;
+            padding: 100px;
+            padding-top: 50px;
+            align: center;
+        }
+
+        .header-link {
+            margin: 0 10px;
+            padding: 5px;
+            border: 0px;
+            border-radius: 5px;
+            text-decoration: none;
+            color: #f2f2f2;
+            font-size: 12px;
+            transition: background-color 0.3s ease;
+        }
+        .header-link:hover {
+            background-color: #f2f2f2;
+            color: #000;
+            text-decoration: None;
+        }
+        img:hover {
+            transform: scale(1.4);
+        }
+        img {
+            transition: all 0.3s ease;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+        }
+        .card-title {
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.3);
+        }
+        .card-text {
+            padding-top: 10px;
+        }
+        .list-link {
+            text-decoration: none;
+            font-weight: bold;
+        }
+        .list-link:hover {
+            text-decoration: none;
+            font-weight: bold;
+            color: #006bb3;
+        }
+        .my-list {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+        .my-list li {
+            margin-bottom: 10px;
+        }
+        .site-footer {
+            background-color: #f8f8f8;
+            padding: 20px 0;
+            text-align: center;
+            position: absolute;
+            bottom: 0;
+            width: 100%;
+        }
+        .site-footer p {
+            margin: 0;
+            font-size: 14px;
+            color: #666;
+        }
+    </style>
+</head>
+<body>
+<div class="container-fluid">
+        <div class="row">
+            <div class="col-md-3"><img src ="{{ object.image_url }}" class = "card-img-top" alt=".." style="width: 200px;"></div>
+            <div class="col-md-9">
+                <h4 class="card-title">{{ object.title|title }}</h4>
+                <p align="justify" class="card-text"><i>{{ object.description }}</i></p>
+                <ul class="my-list">
+                    <li><i>Author : <a class="list-link" href="{{ object.follow_author }}">{{ object.author }}</a></i></li>
+
+ {% if object.book_available is True %}
+
+                            <p class="text-success"><strong>Available for purchase</strong></p>
+                            <div style="display: flex; align-items: center;">
+                                <p style="font-size: 16px; font-weight: bold; margin-right: 10px; padding-top: 10px;">{{ object.price }} RS</p>
+                                <a href="{% url 'checkout' object.pk %}" class="btn btn-primary" role="button"> Buy now</a>
+                            </div>
+                        {% else %}
+                            <p class="text-danger"><strong>Out of stock</strong></p>
+                            <div style="display: flex; align-items: center;">
+                                <p style="font-size: 16px; font-weight: bold; margin-right: 10px; padding-top: 10px;">{{ object.price }} RS</p>
+                                <a class="btn btn-danger disabled" href=""><s>Buy Now</s></a>
+                            </div>
+                        {% endif %}
+
+
+
+</body>
+</html>
+{% endblock content %}

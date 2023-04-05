@@ -1,0 +1,302 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>bookstore</title>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js" integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN" crossorigin="anonymous"></script>
+    <style>
+        body {
+            background: #f2f2f2;
+        }
+        .container-fluid {
+            padding: 120px;
+            padding-top: 50px;
+        }
+        .navbar {
+            padding: 20px;
+            background: #00458a;
+            background-image:url("https://png.pngtree.com/back_origin_pic/03/88/19/883f1b0ddd7c6f341e3357fd964b2bfa.jpg")
+
+        }
+        .navbar-brand {
+            font-weight: bold;
+            font-size: 1.5rem;
+            color: #f2f2f2;
+            text-decoration: none;
+        }
+        .navbar-brand:hover {
+            background-color: transparent;
+            color: #f2f2f2;
+        }
+        .navbar-brand img {
+            margin-right: 0.5rem;
+            border-radius: 50px;
+        }
+        .card{
+          display: block;
+          margin-left: auto;
+          margin-right: auto;
+          width: 100%;
+          font-size: 20px;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+        }
+        .card:hover img {
+            transform: scale(1.5);
+        }
+        .card img {
+            transition: all 0.3s ease;
+             margin-top: 2rem;
+             display: block;
+              margin-left: auto;
+              margin-right: auto;
+              width: 50%;
+
+        }
+        .card-title {
+            font-size: 20px;
+            font-weight: bold;
+            padding: 5px;
+        }
+        .card-text {
+            font-size: 18px;
+            color: #000000;
+            margin-top: 8px;
+            padding: 5px;
+        }
+        .text-primary {
+            font-size: 14px;
+            margin-top: 8px;
+            padding: 5px;
+        }
+        .text-danger {
+            font-size: 14px;
+            margin-top: 8px;
+            padding: 5px;
+        }
+        @media (max-width: 768px) {
+            .card {
+            width: 100%;
+        }
+        }
+        .header-link {
+            margin: 0 10px;
+            padding: 5px;
+            border: 0px;
+            border-radius: 5px;
+            text-decoration: none;
+            color: #f2f2f2;
+            font-size: 12px;
+            transition: background-color 0.3s ease;
+        }
+        .header-link:hover {
+            background-color: #f2f2f2;
+            color: #000;
+            text-decoration: None;
+        }
+        .card-link {
+            padding: 3px;
+            border: 1px solid #007bff;
+            border-radius: 5px;
+            text-decoration: none;
+            color: #007bff;
+            font-size: 14px;
+            transition: background-color 0.3s ease;
+        }
+        .card-link:hover {
+            background-color: #007bff;
+            color: #fff;
+            text-decoration: None;
+        }
+        .dropdown-menu {
+            position: absolute;
+            left: 0;
+            right: auto;
+            transform: translateX(-50%);
+            background: #f9f9f9;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+            padding: 0.5rem;
+            border-radius: 15px;
+        }
+        .dropdown-item {
+            color: #333;
+            font-size: 1rem;
+            line-height: 1.5;
+        }
+        .dropdown-item:hover {
+            background-color: RebeccaPurple;
+            border-radius: 10px;
+            color: white;
+        }
+        .dropdown-divider {
+            margin: 0.5rem 0;
+            border-top: 1px solid #ccc;
+        }
+        .site-footer {
+
+            padding: 20px 0;
+            text-align: center;
+        }
+        .site-footer p {
+            margin: 0;
+            font-size: 14px;
+            color: black;
+        }
+        .profile-info {
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 5px 10px rgba(0,0,0,0.3);
+        }
+        .favorite-books {
+            text-align: center;
+            text-weight: bold;
+            background: white;
+            margin-left: 10px;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 5px 10px rgba(0,0,0,0.3);
+        }
+        .other-details {
+            padding: 30px;
+            background: white;
+            margin-left: 10px;
+            border-radius: 10px;
+            box-shadow: 0 5px 10px rgba(0,0,0,0.3);
+        }
+
+
+    .book-name{
+    color:white;
+    }
+
+    #note{
+    font-size: 20px;
+     color:black;
+    }
+#gym{
+    font-size: 5px;
+     color:black;
+    }
+
+
+    </style>
+</head>
+<body>
+<nav class="navbar" id="gym">
+    <p class="navbar-brand">
+        ഇതൾ
+    </p>
+    <div class="ml-auto" style="margin-left: auto;">
+        <a class="header-link" href="{% url 'list' %}">Home</a>
+        <a class="header-link" href="{% url 'contact' %}">Contact</a>
+        <a class="header-link" href="{% url 'about' %}">About</a>
+    </div>
+    <div class="dropdown">
+        <button type="button" class="btn dropdown" data-bs-toggle="dropdown">{{ user }}</button>
+        <ul class="dropdown-menu">
+            <li><a class="dropdown-item" href="{% url 'myprofile' %}">My profile</a></li>
+            <li><a class="dropdown-item" href="{% url 'list' %}">Books</a></li>
+            <li><a class="dropdown-item" href="{% url 'reviews' %}">Reviews</a></li>
+                <li><a class="dropdown-item" href="{% url 'cart' %}">My cart</a></li>
+            <li>
+                <hr class="dropdown-divider">
+            </li>
+            <li><a class="dropdown-item" href="{% url 'logout' %}">Logout</a></li>
+        </ul>
+    </div>
+
+</nav>
+
+<div class="container-fluid" id="note">
+    {% if myprofile %}
+    {% for profile in myprofile %}
+    <div class="row">
+        <div class="col-sm-4 profile-info">
+            <h5 class="profile-name">{{ profile.name }}</h5>
+            <hr>
+            <h6 class="contents"><i>@{{ user.username|lower }}</i> | {{ profile.email }}</h6>
+            <p class="text-bio">{{ profile.bio }}</p>
+            <div class="profile-button" style="text-align: center;">
+
+                <a href="{% url 'editprofile' %}">Update Profile</button></a>
+            </div>
+        </div>
+        <div class="col-sm-3 favorite-books">
+            <h6><b>FAVORITES</b></h6>
+            <div class="row">
+                {% for plan in profile.Favorites.all %}
+                <div class="col-sm-6 img-container">
+                    <div class="">
+                        <img class="fav-img" src="{{ plan.image_url }}" style="width: 180px; height: 180px;">
+                        <div class="book-name">
+                            {{ plan.name }}
+                        </div>
+                    </div>
+                </div>
+                {% empty %}
+                <p>No favorites yet.</p>
+                {% endfor %}
+            </div>
+        </div>
+        <div class="col-sm-4 other-details">
+            <div class="row">
+                <h6 style="text-align: center; font-weight: bold; margin: 0;">Address</h6>
+                <div class="col-md-12 basic-wrapper">
+                    <textarea class="form-control mt-12 address-card" readonly>{{ profile.address }}</textarea>
+                </div>
+            </div>
+
+
+        </div>
+    </div>
+    {% endfor %}
+    
+    {% else %}
+    <div class="row">
+        <div class="col-sm-4 profile-info">
+            <div class="blank-container">
+                <img class="profile-blank" src="" alt="">
+
+            </div>
+            <h5 class="profile-name"></h5>
+            <hr>
+            <h6 class="contents"><i>@{{ user.username|lower }}</i> | add email</h6>
+            <p class="text-bio">-- empty --</p>
+            <div class="profile-button" style="text-align: center;">
+                <a href="{% url 'createprofile' %}"><button type="button" class="btn btn-success">Update Profile</button>
+                </a>
+            </div>
+        </div>
+        <div class="col-sm-3 favorite-books">
+            <h6><b>FAVORITES</b></h6>
+            <div class="row">
+                <p>No Favorites.</p>
+            </div>
+        </div>
+        <div class="col-sm-4 other-details">
+            <div class="row">
+                <h6 style="text-align: center; font-weight: bold; margin: 0;">Address</h6>
+                <div class="col-md-12 basic-wrapper">
+                    <textarea class="form-control mt-12 address-card" readonly>-- empty --</textarea>
+                </div>
+            </div>
+
+
+        </div>
+    </div>
+    {% endif %}
+</div>
+<footer class="site-footer">
+    <div class="container">
+        <p>Copyright &copy; 2023 ഇതൾ</p>
+    </div>
+</footer>
+</body>
+</html>

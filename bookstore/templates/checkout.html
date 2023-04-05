@@ -1,0 +1,239 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>bookstore</title>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js" integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.3/font/bootstrap-icons.css">
+    <style>
+        body {
+            background: #f2f2f2;
+        }
+        .container-fluid {
+            padding: 100px;
+            padding-top: 50px;
+        }
+        .navbar {
+            padding: 20px;
+            background: #00458a;
+            background-image:url("https://png.pngtree.com/back_origin_pic/03/88/19/883f1b0ddd7c6f341e3357fd964b2bfa.jpg")
+
+        }
+        .navbar-brand {
+            font-weight: bold;
+            font-size: 1.5rem;
+            color: #f2f2f2;
+            text-decoration: none;
+        }
+        .navbar-brand:hover {
+            background-color: transparent;
+            color: #f2f2f2;
+        }
+        .navbar-brand img {
+            margin-right: 0.5rem;
+            border-radius: 50px;
+        }
+        body {
+            background: #f2f2f2;
+            height: 100%;
+            margin: 0;
+        }
+        .container-fluid {
+            min-height: 100%;
+            position: relative;
+            padding: 100px;
+            padding-top: 50px;
+            align: center;
+        }
+
+        .header-link {
+            margin: 0 10px;
+            padding: 5px;
+            border: 0px;
+            border-radius: 5px;
+            text-decoration: none;
+            color: #f2f2f2;
+            font-size: 12px;
+            transition: background-color 0.3s ease;
+        }
+        .header-link:hover {
+            background-color: #f2f2f2;
+            color: #000;
+            text-decoration: None;
+        }
+        img:hover {
+            transform: scale(1.4);
+        }
+        img {
+            transition: all 0.3s ease;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+        }
+        .card-title {
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.3);
+        }
+        .card-text {
+            padding-top: 10px;
+        }
+        .list-link {
+            text-decoration: none;
+            font-weight: bold;
+        }
+        .list-link:hover {
+            text-decoration: none;
+            font-weight: bold;
+            color: #006bb3;
+        }
+        .my-list {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+        .my-list li {
+            margin-bottom: 10px;
+        }
+        .site-footer {
+            background-color: #f8f8f8;
+            padding: 20px 0;
+            text-align: center;
+            position: absolute;
+            bottom: 0;
+            width: 100%;
+        }
+        .site-footer p {
+            margin: 0;
+            font-size: 14px;
+            color: #666;
+        }
+    </style>
+</head>
+<body>
+
+
+<nav class="navbar">
+        <p class="navbar-brand">
+            ഇതൾ
+        </p>
+       <div class="ml-auto" style="margin-left: auto;">
+            <a class="header-link" href="{% url 'home' %}">Home</a>
+            <a class="header-link" href="{% url 'contact' %}">Contact</a>
+            <a class="header-link" href="{% url 'about' %}">About</a>
+        </div>
+        <div class="dropdown">
+            <button type="button" class="btn dropdown" data-bs-toggle="dropdown">{{ user }}</button>
+            <ul class="dropdown-menu">
+                <li><a class="dropdown-item" href="{% url 'myprofile' %}">My profile</a></li>
+                  <li><a class="dropdown-item" href="{% url 'list' %}">Books</a></li>
+                <li><a class="dropdown-item" href="{% url 'reviews' %}">Reviews</a></li>
+                <li><a class="dropdown-item" href="{% url 'cart' %}">My cart</a></li>
+                <li><hr class="dropdown-divider"></li>
+                <li><a class="dropdown-item" href="{% url 'logout' %}">Logout</a></li>
+            </ul>
+        </div>
+<form class="search" action="{% url 'search' %}" method="get">
+
+         <input name="q" class="fas fa-search" type="text"  autocomplete="on"
+                placeholder="click to search">
+     </form>
+    </nav>
+
+
+<div class="container">
+    {% if object.book_available is True %}
+    <div class="row">
+        <div class="col-lg">
+            <div class="text-center" style=width:15rem;>
+                <br><img src="{{object.image_url }}" class="card-img">
+            </div>
+        </div>
+        <div class="col-lg">
+            <br>
+            <div class="card card-body"  >
+                <h3>{{object.title}}</h3>
+                <br>
+                <h4> Total: $-{{object.price|floatformat:2}}</h4>
+                <hr>
+                <div class="paypal-button-container">
+
+                </div>
+<!--Paypal payments-->
+
+	<div id="paypal-button-container"></div>
+
+	<script
+		src="https://www.paypal.com/sdk/js?client-id=AaDbFCTAdi8NU4o-x6oOaBiLLoybkvO8w3xVZ2LgPAiTRwT4dDJu5u_ZecP9OtLTDvr7GZtZk_HuM3kq&currency=USD"></script>
+
+	<script>
+
+		function getCookie(name) {
+			var cookieValue = null;
+			if (document.cookie && document.cookie !== '') {
+				var cookies = document.cookie.split(';');
+				for (var i = 0; i < cookies.length; i++) {
+					var cookie = cookies[i].trim();
+					// Does this cookie string begin with the name we want?
+					if (cookie.substring(0, name.length + 1) === (name + '=')) {
+						cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+						break;
+					}
+				}
+			}
+			return cookieValue;
+		}
+		var csrftoken = getCookie('csrftoken');
+
+		var total = '{{object.price}}'
+		var productId = '{{object.id}}'
+
+		function completeOrder() {
+			var url = ""
+
+			fetch(url, {
+				method: 'POST',
+				headers: {
+					'content-type': 'application/json',
+					'X-CSRFToken': csrftoken,
+				},
+				body: JSON.stringify({ 'productId': productId })
+			})
+		}
+
+
+
+		// Render the PayPal button into #paypal-button-container
+		paypal.Buttons({
+
+			// Set up the transaction
+			createOrder: function (data, actions) {
+				return actions.order.create({
+					purchase_units: [{
+						amount: {
+							value: total
+						}
+					}]
+				});
+			},
+
+			// Finalize the transaction
+			onApprove: function (data, actions) {
+				return actions.order.capture().then(function (details) {
+					// Show a success message to the buyer
+					completeOrder()
+					alert('Transaction completed by ' + details.payer.name.given_name + '!');
+				});
+			}
+
+
+		}).render('#paypal-button-container');
+	</script>
+            </div>
+        </div>
+    </div>
+</div>
+{% endif %}
+</body>
+</html>
+

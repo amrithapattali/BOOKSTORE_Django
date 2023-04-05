@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>bookstore</title>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js" integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.3/font/bootstrap-icons.css">
+    <style>
+        body {
+            background: #f2f2f2;
+        }
+        .container-fluid {
+            padding: 100px;
+            padding-top: 50px;
+        }
+        .navbar {
+            padding: 20px;
+            background: #00458a;
+            background-image:url("https://png.pngtree.com/back_origin_pic/03/88/19/883f1b0ddd7c6f341e3357fd964b2bfa.jpg")
+
+        }
+        .navbar-brand {
+            font-weight: bold;
+            font-size: 1.5rem;
+            color: #f2f2f2;
+            text-decoration: none;
+        }
+        .navbar-brand:hover {
+            background-color: transparent;
+            color: #f2f2f2;
+        }
+        .navbar-brand img {
+            margin-right: 0.5rem;
+            border-radius: 50px;
+        }
+        .card {
+            margin: 30px;
+            border-radius: 8px;
+            text-align: center;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+            position: relative;
+            overflow: hidden;
+            transition: all 0.3s ease;
+        }
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+        }
+        .card:hover img {
+            transform: scale(1.1);
+        }
+        .card img {
+             width: 200px;
+            height: 300px
+            transition: all 0.3s ease;
+        }
+        .card-title {
+            font-size: 14px;
+            font-weight: bold;
+            padding: 5px;
+        }
+        .card-text {
+            font-size: 13px;
+            color: #888;
+            margin-top: 8px;
+            padding: 5px;
+        }
+        .text-primary {
+            font-size: 14px;
+            margin-top: 8px;
+            padding: 5px;
+        }
+        .text-danger {
+            font-size: 14px;
+            margin-top: 8px;
+            padding: 5px;
+        }
+        @media (max-width: 768px) {
+            .card {
+            width: 100%;
+        }
+        }
+        .header-link {
+            margin: 0 10px;
+            padding: 5px;
+            border: 0px;
+            border-radius: 5px;
+            text-decoration: none;
+            color: #f2f2f2;
+            font-size: 12px;
+            transition: background-color 0.3s ease;
+        }
+        .header-link:hover {
+            background-color: #f2f2f2;
+            color: #000;
+            text-decoration: None;
+        }
+        .card-link {
+            padding: 3px;
+            border: 1px solid #007bff;
+            border-radius: 5px;
+            text-decoration: none;
+            color: #007bff;
+            font-size: 14px;
+            transition: background-color 0.3s ease;
+        }
+        .card-link:hover {
+            background-color: #007bff;
+            color: #fff;
+            text-decoration: None;
+        }
+        .dropdown {
+            border: none;
+        }
+        .dropdown:hover {
+            border: none;
+        }
+        .dropdown-menu {
+            position: absolute;
+            left: 0;
+            right: auto;
+            transform: translateX(-50%);
+            background: #f9f9f9;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+            padding: 0.5rem;
+            border-radius: 15px;
+        }
+        .dropdown-item {
+            color: #333;
+            font-size: 1rem;
+            line-height: 1.5;
+        }
+        .dropdown-item:hover {
+            background-color: RebeccaPurple;
+            border-radius: 10px;
+            color: white;
+        }
+        .dropdown-divider {
+            margin: 0.5rem 0;
+            border-top: 1px solid #ccc;
+        }
+        .site-footer {
+            background-color: #f8f8f8;
+            padding: 20px 0;
+            text-align: center;
+        }
+        .site-footer p {
+            margin: 0;
+            font-size: 14px;
+            color: #666;
+        }
+
+    </style>
+</head>
+<body>
+    <nav class="navbar">
+        <p class="navbar-brand">
+            ഇതൾ
+        </p>
+       <div class="ml-auto" style="margin-left: auto;">
+            <a class="header-link" href="{% url 'list' %}">Home</a>
+            <a class="header-link" href="{% url 'contact' %}">Contact</a>
+            <a class="header-link" href="{% url 'about' %}">About</a>
+        </div>
+        <div class="dropdown">
+            <button type="button" class="btn dropdown" data-bs-toggle="dropdown" ><i style="font-size:20px;" class="bi bi-person-circle user-icon"></i></button>
+            <ul class="dropdown-menu">
+                <li><a class="dropdown-item" href="{% url 'myprofile' %}">My profile</a></li>
+                <li><a class="dropdown-item" href="{% url 'list' %}">Books</a></li>
+                <li><a class="dropdown-item" href="{% url 'reviews' %}">Reviews</a></li>
+                <li><a class="dropdown-item" href="{% url 'cart' %}">My cart</a></li>
+                <li><hr class="dropdown-divider"></li>
+                <li><a class="dropdown-item" href="{% url 'logout' %}">Logout</a></li>
+            </ul>
+        </div>
+<form class="search" action="{% url 'search' %}" method="get">
+
+         <input name="q" class="fas fa-search" type="text"  autocomplete="on"
+                placeholder="click to search">
+     </form>
+    </nav>
+
+
+
+
+
+
+    <div class="container-fluid">
+        <div class="row">
+            {% for each in object_list %}
+            <div class="col-sm-3 d-flex align-items-stretch">
+                <div class="card" style="width: 150px;">
+                    <a class="card-link" href="{% url 'details' each.pk %}"><img src ="{{ each.image_url }}" class = "card-img-top" alt=".." style="width: 150px;"></a>
+                    <div class="body">
+                        <h5 class="card-title">{{ each.title }}</h5>
+                        <p class="card-text">{{ each.price|floatformat:2 }}</p>
+                        {% if each.book_available is True %}
+                            <p class="text-success"><strong>Available</strong></p>
+                        {% else %}
+                            <p class="text-danger"><strong>Out of stock</strong></p>
+                        {% endif %}
+                        <a href="{% url 'add_to_cart' each.id %}" class="btn btn-primary" style=background:white;color:black;>add to cart</a>
+
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+    <footer class="site-footer">
+        <div class="container">
+            <p>Copyright &copy; 2023  ഇതൾ </p>
+        </div>
+    </footer>
+</body>
+</html>

@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>reads.com</title>
+    <meta charset="UTF-8">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Nunito+Sans&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.3/font/bootstrap-icons.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+
+    <style>
+        body {
+            background: white;
+            height: 100%;
+            margin: 0;
+        }
+        .container-fluid {
+            min-height: 100%;
+            position: relative;
+            padding: 100px;
+            padding-top: 50px;
+            align: center;
+        }
+        .navbar {
+            padding: 20px;
+            background-image:url("https://png.pngtree.com/back_origin_pic/03/88/19/883f1b0ddd7c6f341e3357fd964b2bfa.jpg");
+        }
+        .navbar-brand {
+            font-weight: bold;
+            font-size: 1.5rem;
+            color: #f2f2f2;
+            text-decoration: none;
+        }
+        .navbar-brand:hover {
+            background-color: transparent;
+            color: #f2f2f2;
+        }
+        .header-link {
+            margin: 0 10px;
+            padding: 5px;
+            border: 0px;
+            border-radius: 5px;
+            text-decoration: none;
+            color: #f2f2f2;
+            font-size: 12px;
+            transition: background-color 0.3s ease;
+        }
+        .header-link:hover {
+            background-color: #f2f2f2;
+            color: #000;
+            text-decoration: None;
+        }
+        .card {
+            padding: 10px;
+            margin-bottom: 10px;
+            border: none;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.3);
+        }
+        .pfp {
+            border: 2px solid Black;
+            border-radius: 50%;
+        }
+
+        .dropdown-toggle {
+            background-color: transparent;
+            border: none;
+        }
+        .dropdown-toggle:focus {
+            box-shadow: none;
+        }
+        .dropdown-toggle::after {
+            display: none;
+        }
+        .dropdown-toggle .bi {
+            font-size: 16px;;
+        }
+        .dropdown-item {
+            cursor: pointer;
+        }
+        .dropdown-item:hover {
+            background: RebeccaPurple;
+            color: white;
+            cursor: pointer;
+            border-radius: 10px;
+        }
+        .site-footer {
+            background-color: #f8f8f8;
+            padding: 20px 0;
+            text-align: center;
+            bottom: 0;
+            width: 100%;
+        }
+        .site-footer p {
+            margin: 0;
+            font-size: 14px;
+            color: #666;
+        }
+
+    </style>
+
+</head>
+<body>
+<nav class="navbar">
+    <p class="navbar-brand">
+        ഇതൾ
+    </p>
+    <div class="ml-auto" style="margin-left: auto;">
+        <a class="header-link" href="{% url 'list' %}">Home</a>
+        <a class="header-link" href="{% url 'contact' %}">Contact</a>
+        <a class="header-link" href="{% url 'about' %}">About</a>
+    </div>
+
+    <form class="search" action="{% url 'search' %}" method="get">
+
+        <input name="q" class="fas fa-search" type="text" autocomplete="on"
+               placeholder="click to search">
+    </form>
+</nav>
+
+
+<div class="container-fluid">
+    <div style="display: flex;">
+        <h4 style="margin-bottom: 20px;">Reviews</h4>
+        <a style="font-weight: bold; font-size: 20px; color: Red; border: none; margin-left: 450px;"
+           href="{% url 'reviewcreate' %}"><i class="bi bi-plus-circle"></i></a>
+    </div>
+    <div class="row">
+        <div class="col-lg-8 scrollable" style="height: 450px">
+            {% for review in reviews %}
+            <div class="card">
+                <div class="row">
+                    <div class="col-sm-8">
+                    </div>
+                    <div class="col-sm-8">
+                        <p style="font-weight: bold;">{{ review.name }}</p>
+                        {% if review.user == request.user %}
+                        <p><a style="text-decoration: none; color: #000;" href="{% url 'reviewupdate' review.pk %}">{{ review.review }}</a></p>
+                        {% else %}
+                        <p>{{ review.review }}</p>
+                        {% endif %}
+                    </div>
+                    <div class="col-sm-2" style="padding: 10px;">
+                        {% if review.user == request.user %}
+                        <div class="dropdown">
+                            <button style="font-size: 10px;" class="btn dropdown-toggle" type="button"
+                                    id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true"
+                                    aria-expanded="false">
+                                <i class="bi bi-three-dots-vertical"></i>
+                            </button>
+                            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                                <a style="font-size: 14px;" class="dropdown-item"
+                                   href="{% url 'reviewupdate' review.pk %}">Update Review</a>
+                                <a style="font-size: 14px;" class="dropdown-item" href="" data-toggle="modal"
+                                   data-target="#deleteModal{{ review.pk }}">Delete Review</a>
+                            </div>
+                        </div>
+                        {% endif %}
+                        <p style="font-weight: bold;">{{ review.rating }}/5 <i style="color: orange;"
+                                                                               class="bi bi-star-fill"></i></p>
+                    </div>
+                </div>
+            </div>
+
+
+            <!--    Delete Modal-->
+            <div class="modal fade" id="deleteModal{{ review.pk }}" tabindex="-1"
+                 aria-labelledby="deleteModalLabel{{ review.pk }}" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="deleteModalLabel{{ review.pk }}">Delete Review</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            Are you sure you want to delete this review?
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                            <form action="{% url 'reviewdelete' review.pk %}" method="POST">
+                                {% csrf_token %}
+                                <input type="hidden" name="next" value="{{ request.path }}">
+                                <button type="submit" class="btn btn-danger">Delete</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+
+        </div>
+    </div>
+    <footer class="site-footer">
+        <div class="container">
+            <p>Copyright &copy; 2023 ഇതൾ</p>
+        </div>
+    </footer>
+</body>
+</html>
